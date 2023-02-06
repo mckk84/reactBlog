@@ -1,2 +1,9 @@
 # reactBlog
-React Blog website
+
+Server:
+
+Node - Express - Mongodb
+
+Client :
+
+React Js, Tailwind CSS
