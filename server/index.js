@@ -16,16 +16,16 @@ app.use(express.urlencoded({
   })
 );
 
-
 MongoClient.connect(mongodbUrl, (err, client) => {
   if (err) throw err
 
   const db = client.db('blogger');
-})
+});
 
 app.get("/", async (req, res) => {
     res.send("API FOR BLOGGER");
 });
+
 
 app.listen(port, async() => {
     console.log(`Server Listning on ${port}`)
