@@ -1,20 +1,27 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import { useSelector } from "react-redux";
 
 function App() {
-  return (
-        <div className="App">
-            <BrowserRouter>
-                <Header />
-                <Routes>
-                    <Route index element={<Home />} />
-                    
-                    <Route path="*" element={<Home />} />
-                </Routes>
-                <Footer />
-            </BrowserRouter>
-        </div>
+    const user = useSelector((state) => state.user);
+
+    return (
+        <BrowserRouter>
+            <Header />
+            <Routes>
+                <Route index element={<Home />} />
+                {!user && (
+                    <>
+                        <Route path="/login" element={<Login />} />
+                    </>
+                )}
+                <Route path="*" element={<Home />} />
+            </Routes>
+            <Footer />
+        </BrowserRouter>
     );
 }
 
