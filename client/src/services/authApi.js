@@ -18,8 +18,11 @@ userAuth.login = (email, password) => {
       email,
       password,
     })
-    .then((response) => {
-      localStorage.setItem('user', JSON.stringify(response.data));
+    .then((response) => 
+    {
+      if( response.data.loggedIn ){
+        localStorage.setItem('user', JSON.stringify(response.data));
+      }
       return response.data;
     });
 };

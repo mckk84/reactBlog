@@ -21,6 +21,7 @@ async function init_users()
         }    
     }
 }
+
 async function init_blogs()
 {
     let blogs = await Blogs.find({});

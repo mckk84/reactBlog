@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express();
 const cors = require("cors");
+let validator = require('validator');
+const bcrypt = require('bcrypt');
 
 require("dotenv").config();
 app.use(express.static('public'))
@@ -14,19 +16,55 @@ app.use(express.urlencoded({
   })
 );
 require('./modules/fakedata');
+const User = require('./models/User');
 
 app.get("/", async (req, res) => {
     res.send("API FOR BLOGGER");
 });
 
 app.post("/login", async (req, res) => {
-    console.log(req.body);
-    res.json({
-        loggedIn:true,
-        name:"Charan Kumar",
-        email:"mckk84@gmail.com",
-        password: "password",
-    });
+    console.log(req.body); 
+
+    if( validator.isEmail(req.body.email) 
+        && !validator.isEmpty(req.body.password)
+        && validator.isLength(req.body.password , {min:6, max:15})    
+         )
+    {
+        const user = await User.findOne({email: req.body.email});
+        if( user )
+        {
+            bcrypt.compare(req.body.password, user.password, function (err, result) {
+                if (result == true) 
+                {
+                    res.json({
+                        loggedIn:true,
+                        name:user.name,
+                        email:user.email,
+                        isAdmin:user.isAdmin
+                    });
+                } 
+                else 
+                {
+                    reject(new Error("Password is incorrect.")); 
+                }
+            });
+        }
+        else
+        {
+            res.json({
+                loggedIn:false,
+                error:"Email not registerd."
+            });
+        }
+    }
+    else
+    {
+        res.json({
+            loggedIn:false,
+            error:"Invalid data"
+        });
+    }
+
 });
 
 const blogRoutes = require('./routes/blogs');

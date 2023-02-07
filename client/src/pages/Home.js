@@ -11,6 +11,7 @@ function Home()
 
     useEffect(() => 
     {
+      console.log(user);
         if( !user ) {
             navigate('/login');
         }
@@ -23,12 +24,12 @@ function Home()
     }, []);
 
     return (
-        <div className="container-xl bg-gray-100 mx-auto py-2">
+        <div className="container-xl bg-gray-200 mx-auto py-2">
             <section className="text-gray-600 body-font relative">
               <div className="container px-2 py-4 mx-auto flex sm:flex-nowrap flex-wrap">
                 <div className="lg:w-2/3 md:w-1/2 rounded-lg overflow-hidden sm:mr-10 p-2 gap-10 flex flex-col justify-between relative">
                   {latest_blogs.map((blog) => (                
-                  <div className="bg-white w-full relative flex flex-wrap py-6 shadow-lg">
+                  <div key={blog.id} className="bg-white w-full relative flex flex-wrap py-6 shadow-lg">
                     <div className="px-6 w-full">
                       <h2 className="title-font font-medium text-gray-900 tracking-widest text-xl">{blog.title.toUpperCase()}</h2>
                       <p className="mt-1">{blog.title_description}, <span className="text-gray-500">{blog.date}</span></p>
@@ -50,8 +51,9 @@ function Home()
                     ))}  
                 </div>
                 <div className="lg:w-1/3 md:w-1/2 flex flex-col md:ml-auto px-0 w-full md:py-0 mt-8 md:mt-0">
-                    <div className="bg-white border shadow-lg bg-indigo-100 mb-4 px-2">
-                        <h2 className="text-gray-900 text-lg mb-1 py-4 font-medium title-font">{user.name}</h2>
+                    <div className="flex align-middle justify-start bg-white border shadow-lg bg-grey-100 mb-4 px-2">
+                        <img src="/images/user.svg" className="mt-2 border w-10 h-10 inline-block" />
+                        <h2 className="text-gray-900 text-lg mb-1 px-4 py-4 mb-0 font-semibold title-font">{user ? user.name : ''}</h2>
                     </div>
                     <div className="w-full bg-white shadow-lg mb-4 flex flex-col md:ml-auto w-full mt-8 md:mt-0 border">
                       <h2 className="title-font bg-gray-300 px-4 py-4 text-gray-900 tracking-widest text-xl">Popular Posts</h2>

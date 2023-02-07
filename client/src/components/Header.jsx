@@ -9,12 +9,11 @@ function Header()
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    function handleLogout(e) 
+    function handleLogout() 
     {
-        e.preventDefault();
         userAuth.logout();
         dispatch({ type:"LOGOUT"});
-        navigate("/");    
+        window.location.href="/login";
     }
 
     return (
@@ -30,7 +29,7 @@ function Header()
                   <a className="text-xl" href="/login">Login</a>
               )}
             {user && (
-                  <a className="text-xl text-red-500 cursor-pointer" onClick={handleLogout}>Logout</a>
+                  <button className="text-xl text-red-500 cursor-pointer" onClick={handleLogout}>Logout</button>
               )}
           </div>
         </header>

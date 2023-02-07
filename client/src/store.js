@@ -11,9 +11,11 @@ export function authentication(state = initialState, action) {
         user: action.user
       };
     case 'LOGIN_FAILURE':
-      return {};
+      localStorage.removeItem('user');
+      return { loggedIn: false, user: {} };
     case 'LOGOUT':
-      return {};
+      localStorage.removeItem('user');
+      return { loggedIn: false, user: {} };
     default:
       return state
   }
