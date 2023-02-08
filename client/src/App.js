@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Admin from "./admin/Admin";
 import AdminBlogs from "./admin/AdminBlogs";
+import Users from "./admin/Users";
 import Blog from "./pages/Blog";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -31,8 +32,9 @@ function App() {
                         <Route index element={<Home />} />
                     </>
                 )}
-                <Route index element={<Admin />} />
+                <Route path="/Admin" element={<Admin />} />
                 <Route path="/AdminBlogs" element={<AdminBlogs />} />
+                <Route path="/AdminUsers" element={<Users />} />
                 <Route path="/blogs/:slug" element={<Blog />} />
                 {!user && (
                     <>

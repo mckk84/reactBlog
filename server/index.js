@@ -5,8 +5,6 @@ let validator = require('validator');
 const bcrypt = require('bcrypt');
 
 require("dotenv").config();
-app.use(express.static('public'))
-
 const port = process.env.SERVER_PORT || 8000;
 
 app.use(cors({origin: 'http://localhost:3000'}));
@@ -104,11 +102,11 @@ const blogRoutes = require('./routes/blogs');
 app.use('/blogs', blogRoutes);
 
 app.get("/", async (req, res) => {
-    app._router.stack.forEach(function(r){
+    /*app._router.stack.forEach(function(r){
       if (r.route && r.route.path){
         console.log(r.route.path)
       }
-    });
+    });*/
     res.send("API FOR BLOGGER");
 });
 

@@ -13,6 +13,16 @@ router.get('/', async(req, res)=> {
   }
 })
 
+//get Users;
+router.get('/users', async(req, res)=> {
+  try {
+    const sort = {'_id': -1}
+    const users = await User.find().sort(sort);
+    res.status(200).json(users);
+  } catch (e) {
+    res.status(400).send(e.message);
+  }
+})
 
 //create Blog
 router.post('/', async(req, res)=> {

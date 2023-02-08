@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 import blogs from "../services/blogApi";
 import SideBar from "../components/Sidebar";
 
-function AdminBlogs() 
+function Users() 
 {
     const user = useSelector((state) => state.user);
     const navigate = useNavigate();
-    const [latest_blogs, setBlogs] = useState([]);
+    const [users, setUsers] = useState([]);
 
     useEffect(() => 
     {
@@ -16,9 +16,9 @@ function AdminBlogs()
         if( !user ) {
             navigate('/login');
         }
-        blogs.all().then( blogs => {
-            console.log(blogs.data);
-            setBlogs(blogs.data);
+        blogs.getUsers().then( users => {
+            console.log(users.data);
+            setUsers(users.data);
         }).catch(err => {
             console.log(err);
         });
@@ -31,28 +31,28 @@ function AdminBlogs()
             </aside>
             <div key="1" className="container px-2 py-0 mx-auto flex sm:flex-nowrap flex-wrap">
               <div className="w-full bg-white overflow-hidden sm:mr-10 p-2 gap-2 flex flex-col relative">
-                <h2 className="font-semibold text-xl mb-0">Blogs</h2>
-                <table className="w-full mt-2 border">
+                <h2 className="font-semibold text-xl mb-0">Users</h2>
+                <table className="w-full border">
                     <thead className="border">
                         <tr>
-                            <th className="border text-sm border-gray-400 text-center bg-gray-200">Title</th>
-                            <th className="border text-sm border-gray-400 text-center bg-gray-200">Title Description</th>
-                            <th className="border text-sm border-gray-400 text-center bg-gray-200">Category</th>
+                            <th className="border text-sm border-gray-400 text-center bg-gray-200">Name</th>
+                            <th className="border text-sm border-gray-400 text-center bg-gray-200">Email</th>
+                            <th className="border text-sm border-gray-400 text-center bg-gray-200">isAdmin</th>
                             <th className="border text-sm border-gray-400 text-center bg-gray-200">Date</th>
                             <th className="border text-sm border-gray-400 text-center bg-gray-200">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {latest_blogs.map( (blog) => ( 
+                        {users.map( (user) => ( 
                             <tr>
-                                <td className="border text-sm text-center border-gray-400">{blog.title}</td>
-                                <td className="border text-sm text-center border-gray-400">{blog.title_description}</td>
-                                <td className="border text-sm text-center border-gray-400">{blog.category}</td>
-                                <td className="border text-sm text-center border-gray-400">{blog.date}</td>
+                                <td className="border text-sm text-center border-gray-400">{user.name}</td>
+                                <td className="border text-sm text-center border-gray-400">{user.email}</td>
+                                <td className="border text-sm text-center border-gray-400">{user.isAdmin}</td>
+                                <td className="border text-sm text-center border-gray-400">{user.date}</td>
                                 <td className="border text-sm text-center border-gray-400">
                                     <div className="flex justify-center gap-2">
-                                        <a className="text-sm text-indigo-400" href="/EditBlog/:id">Edit</a>
-                                        <a className="text-sm text-red-400" href="/DeleteBlog/:id">Delete</a>
+                                        <a className="text-sm text-indigo-400" href="/EditUser/:id">Edit</a>
+                                        <a className="text-sm text-red-400" href="/DeleteUser/:id">Delete</a>
                                     </div>
                                 </td>
                             </tr>
@@ -66,4 +66,4 @@ function AdminBlogs()
     );
 }
 
-export default AdminBlogs;
+export default Users;

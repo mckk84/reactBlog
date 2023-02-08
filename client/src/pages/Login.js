@@ -22,14 +22,15 @@ function Login()
             setisError(false);
             if( result.loggedIn === true )
             {
+                setloginSuccess("Success");
                 dispatch({ type:"LOGIN_SUCCESS", user:result });
                 navigate("/");
             } else {
-                setloginSuccess("");
                 setisError(true);
                 setloginError(result.error);    
             }
         }).catch(err => {
+            setloginSuccess("");
             console.log(err);
             setisError(true);
             setloginError(err.message);

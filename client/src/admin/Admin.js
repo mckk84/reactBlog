@@ -22,12 +22,12 @@ function Admin()
         }).catch(err => {
             console.log(err);
         });
-    }, []);
+    });
 
     return (
         <div className="container-xl bg-gray-200 mx-auto flex justify-start py-2">
             <aside className="min-h-screen lg:w-1/4 md:w-1/3 flex flex-col md:ml-auto px-0 w-full md:py-0 mt-8 md:mt-0">
-                <SideBar page={Admin} />
+                <SideBar />
             </aside>
             <div key="1" className="container px-2 py-4 mx-auto flex sm:flex-nowrap flex-wrap">
               <div className="lg:w-3/4 md:w-2/3 rounded-lg overflow-hidden sm:mr-10 p-2 gap-10 flex flex-col justify-between relative">

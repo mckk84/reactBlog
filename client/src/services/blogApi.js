@@ -8,6 +8,10 @@ blogs.all = () => {
   return axios.get(API_URL + "blogs");
 };
 
+blogs.getUsers = () => {
+  return axios.get(API_URL + "blogs/users");
+};
+
 blogs.find = (id) => {
   return axios.get(API_URL + "blogs/"+id);
 };
