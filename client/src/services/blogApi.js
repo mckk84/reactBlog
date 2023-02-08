@@ -8,20 +8,9 @@ blogs.all = () => {
   return axios.get(API_URL + "blogs");
 };
 
-blogs.login = (email, password) => {
-  return axios
-    .post(API_URL + "login", {
-      email,
-      password,
-    })
-    .then((response) => {
-      localStorage.setItem('user', JSON.stringify(response.data));
-      return response.data;
-    });
+blogs.find = (id) => {
+  return axios.get(API_URL + "blogs/"+id);
 };
 
-blogs.logout = () => {
-  localStorage.removeItem('user')
-};
 
 export default blogs;

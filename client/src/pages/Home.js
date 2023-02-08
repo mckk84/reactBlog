@@ -38,9 +38,9 @@ function Home()
                       <p className="leading-relaxed text-normal">{blog.content.substr(0, 500)}</p>
                     </div>
                     <div className="w-full px-6 mt-4 flex align-middle justify-between">
-                      <button className="border border-gray-400 px-6 py-4 bg-white">
+                      <a href={"/blogs/"+blog._id} className="border border-gray-400 px-6 py-4 bg-white">
                         <p className="uppercase">Read More >></p> 
-                      </button>
+                      </a>
                       <button className="px-6 py-4 bg-white">
                         <p className="font-normal text-gray-900">Comments
                             <span className="bg-gray-900 ml-2 text-sm py-1 px-1 text-white">0</span>
@@ -61,7 +61,7 @@ function Home()
                           {latest_blogs.slice(0, 5).map((blog) => (                
                           <div className="bg-white w-full relative border-b hover:font-semibold hover:bg-gray-100 flex flex-wrap py-3">
                             <div className="px-6 mt-2 lg:mt-0">
-                              <p className="leading-relaxed text-gray-900">{blog.title}</p>
+                              <a href={"/blogs/"+blog._id}><p className="leading-relaxed text-gray-900">{blog.title}</p></a>
                               <p className="leading-relaxed text-sm">{blog.title_description}</p>
                             </div>
                           </div>
@@ -79,7 +79,6 @@ function Home()
                 </div>
               </div>
             </section>
-
         </div>
     );
 }

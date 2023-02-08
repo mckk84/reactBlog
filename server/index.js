@@ -18,10 +18,6 @@ app.use(express.urlencoded({
 require('./modules/fakedata');
 const User = require('./models/User');
 
-app.get("/", async (req, res) => {
-    res.send("API FOR BLOGGER");
-});
-
 app.post("/login", async (req, res) => {
     console.log(req.body); 
 
@@ -64,11 +60,57 @@ app.post("/login", async (req, res) => {
             error:"Invalid data"
         });
     }
+});
 
+app.post("/register", async (req, res) => {
+    
+    if( validator.isEmail(req.body.email) 
+        && !validator.isEmpty(req.body.username)
+        && !validator.isEmpty(req.body.password)
+        && validator.isLength(req.body.password , {min:6, max:15})    
+         )
+    {
+        const user = await User.findOne({email: req.body.email});
+        if( !user )
+        {
+            let name = req.body.username;
+            let email = req.body.email;
+            let password = req.body.password;
+            let isAdmin = 0;
+            const user = await User.create({name, email, password, isAdmin});
+            res.json({
+                signUp:true,
+                message:"Signup successful."
+            });
+        }
+        else
+        {
+            res.json({
+                signUp:false,
+                error:"Email already registerd."
+            });
+        }
+    }
+    else
+    {
+        res.json({
+            signUp:false,
+            error:"Invalid data"
+        });
+    }
 });
 
 const blogRoutes = require('./routes/blogs');
 app.use('/blogs', blogRoutes);
+
+app.get("/", async (req, res) => {
+    app._router.stack.forEach(function(r){
+      if (r.route && r.route.path){
+        console.log(r.route.path)
+      }
+    });
+    res.send("API FOR BLOGGER");
+});
 
 app.listen(port, async() => {
     console.log(`Server Listning on ${port}`)

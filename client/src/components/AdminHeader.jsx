@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import userAuth from "../services/authApi";
 
-function Header() 
+function AdminHeader() 
 {
     const user = useSelector((state) => state.user);
+    const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    useEffect(() => 
+    {
+        if( !user ) {
+            navigate('/login');
+        }
+    }, []);
 
     function handleLogout() 
     {
@@ -18,7 +27,7 @@ function Header()
         <header className="text-gray-600 body-font border-b shadow-md">
           <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
             <a href="/" className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-              <span className="ml-3 text-xl">Blog</span>
+              <span className="ml-3 text-xl">Admin</span>
             </a>
             <nav className="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
               
@@ -34,4 +43,4 @@ function Header()
     );
 }
 
-export default Header;
+export default AdminHeader;
