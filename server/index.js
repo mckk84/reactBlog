@@ -13,7 +13,8 @@ app.use(express.urlencoded({
     extended: true,
   })
 );
-require('./modules/fakedata');
+
+//require('./modules/fakedata');
 const User = require('./models/User');
 
 app.post("/login", async (req, res) => {
@@ -102,11 +103,6 @@ const blogRoutes = require('./routes/blogs');
 app.use('/blogs', blogRoutes);
 
 app.get("/", async (req, res) => {
-    /*app._router.stack.forEach(function(r){
-      if (r.route && r.route.path){
-        console.log(r.route.path)
-      }
-    });*/
     res.send("API FOR BLOGGER");
 });
 

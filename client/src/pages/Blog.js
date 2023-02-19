@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import blogs from "../services/blogApi";
+import UserBlock from "../components/UserBlock";
 
 function Blog() 
 {
@@ -17,17 +18,19 @@ function Blog()
         if( !user ) {
             navigate('/login');
         }
-
-        blogs.find(slug).then( blogs => 
-        {
-            console.log(blogs.data);
-            setCurrentBlog(blogs.data.blog);
-            setSimilarBlogs(blogs.data.similar);
-        }).catch(err => 
-        {
-            console.log(err);
-        });
-
+        setTimeout(() => {
+          console.log('calling blog api');
+          blogs.find(slug).then( blogs => 
+          {
+              console.log(blogs.data);
+              setCurrentBlog(blogs.data.blog);
+              setSimilarBlogs(blogs.data.similar);
+          }).catch(err => 
+          {
+              console.log(err);
+          });
+        }, 0);
+        console.log('done');
     }, []);
 
     return (
@@ -55,10 +58,7 @@ function Blog()
                     </div>  
                   </div>
                   <div className="lg:w-1/3 md:w-1/2 flex flex-col md:ml-auto px-0 w-full md:py-0 mt-8 md:mt-0">
-                      <div className="flex align-middle justify-start bg-white border shadow-lg bg-grey-100 mb-4 px-2">
-                          <img alt="Avatar" src="/images/user.svg" className="mt-2 border w-10 h-10 inline-block" />
-                          <h2 className="text-gray-900 text-lg mb-1 px-4 py-4 mb-0 font-semibold title-font">{user ? user.name : ''}</h2>
-                      </div>
+                      <UserBlock/>
                       <div className="w-full bg-white shadow-lg mb-4 flex flex-col md:ml-auto w-full mt-8 md:mt-0 border">
                         <h2 className="title-font bg-gray-300 px-4 py-4 text-gray-900 tracking-widest text-xl">Similar Posts</h2>
                         <div className="flex flex-col w-full">

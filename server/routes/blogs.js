@@ -68,12 +68,11 @@ router.delete('/:id', async(req, res)=> {
   }
 })
 
-
 router.get('/:id', async(req, res)=> {
   const {id} = req.params;
   try {
     const blog = await Blogs.findById(id);
-    const similar = await Blogs.find({category: blog.category}).limit(5);
+    const similar = await Blogs.find({category:category, _id:{ $ne : id} }).limit(5);
     res.status(200).json({blog, similar})
   } catch (e) {
     res.status(400).send(e.message);
