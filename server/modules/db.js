@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 mongoose.set('strictQuery', false);
 const mongodbUrl = process.env.MONGODB_URL;
+console.log(mongodbUrl);
 
 mongoose.connect(mongodbUrl, {useNewUrlParser: true});
 var conn = mongoose.connection;
